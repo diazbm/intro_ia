@@ -1,6 +1,5 @@
 import tracemalloc
 import time
-import json
 
 from hanoi_states import StatesHanoi
 from hanoi_states import ProblemHanoi
@@ -28,6 +27,7 @@ while len(lifo_frontier) != 0:
     
     if problem.goal_test(node.state):  # Comprobación
         last_node = node
+        print(f'Longitud del camino de la solución: {last_node.state.accumulated_cost}')
         last_node.generate_solution_for_simulator()
         break
 
@@ -44,9 +44,6 @@ tracemalloc.stop()
 
 end_time = time.perf_counter()
 elapsed_time = end_time - start_time
-
-with open('sequence_profundidad.json', 'w') as fp:
-    json.dump(steps, fp)
 
 print(f"Cantidad de pasos para llegar a la solución: {quantity_of_steps}")
 print(f"Tiempo que demoró: {elapsed_time} [s]", )
