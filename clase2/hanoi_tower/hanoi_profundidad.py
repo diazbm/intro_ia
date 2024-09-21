@@ -29,16 +29,19 @@ while len(lifo_frontier) != 0:
     
     if problem.goal_test(node.state):  # Comprobación
         last_node = node
+        last_node.generate_solution_for_simulator()
         break
     
 
     for next_node in node.expand(problem):
         if next_node.state not in explored:
-            # print(next_node.state)
+            print(next_node.state)
             quantity_of_steps = quantity_of_steps + 1
             lifo_frontier.append(next_node) # En las colas LIFO se hace un append.
+
             action_representation = next_node.action.__dict__
             action_dict = action_representation.get("action_dict") # Sacamos el json de la acción para que la use el simulador
+            print("-------------------------")
             steps.append(action_dict) # Suma el json que representa a la acción en una lista de pasos.
             
 _, memory_peak = tracemalloc.get_traced_memory()
