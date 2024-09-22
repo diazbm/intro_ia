@@ -47,6 +47,7 @@ while not priority_queue.empty():
 
     if problem.goal_test(node.state):  # Comprobación si hemos llegado al estado objetivo
         last_node = node
+        print(last_node.state)
         print(f'Longitud del camino de la solución: {last_node.state.accumulated_cost}')
         last_node.generate_solution_for_simulator()
         break
@@ -54,7 +55,7 @@ while not priority_queue.empty():
     # Expandimos los nodos hijos
     for next_node in node.expand(problem):
         if next_node.state not in explored:
-            # Calcular el costo acumulado (g) y el valor heurístico (h)
+            # Calcular el costo acumulado (costo) y el valor heurístico (h)
             costo = next_node.state.accumulated_cost  # Costo acumulado
             f = costo + h(next_node.state, goal_state)  # f(nodo) = costo(nodo) + h(nodo)
 
